@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레드판다스 ICAM - 혁신적인 투자 컨설팅 및 관리 시스템</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #FF4500;
+            --secondary-color: #1E90FF;
+            --card-bg: #1a1a1a;
+            --section-bg-1: #0f0f0f;
+            --section-bg-2: #141414;
+        }
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            margin-bottom: 1rem;
+        }
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            z-index: 2;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px;
+            background-color: var(--accent-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: var(--text-color);
+        }
+        .section {
+            padding: 100px 0;
+        }
+        .section:nth-of-type(odd) {
+            background-color: var(--section-bg-1);
+        }
+        .section:nth-of-type(even) {
+            background-color: var(--section-bg-2);
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5em;
+            color: var(--accent-color);
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .feature {
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255,69,0,0.1);
+        }
+        .feature h3 {
+            color: var(--accent-color);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .feature h3 .material-icons {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+        .cta {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+        }
+        .cta-button {
+            display: inline-block;
+            background-color: var(--text-color);
+            color: var(--accent-color);
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1.2em;
+        }
+        .cta-button:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            transform: scale(1.05);
+        }
+        .partner-logos {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .partner-logo {
+            width: 100px;
+            height: 100px;
+            margin: 20px;
+            background-color: var(--card-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--text-color);
+            transition: transform 0.3s ease;
+        }
+        .partner-logo:hover {
+            transform: scale(1.1);
+        }
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--bg-color), var(--accent-color), var(--secondary-color));
+            opacity: 0.1;
+            z-index: 1;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            .feature {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="bg-animation"></div>
+        <div class="hero-content">
+            <div class="logo">레드판다스</div>
+            <h1>레드판다스 ICAM</h1>
+            <p>혁신적인 투자 컨설팅 및 관리 시스템으로 금융의 미래를 선도합니다</p>
+            <a href="#" class="cta-button">솔루션 알아보기</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="section">
+            <h2 class="section-title">ICAM의 핵심 기능</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3><span class="material-icons">assignment</span> 종합 업무시스템</h3>
+                    <p>펀드회계, 일임자문, 자산운용지원, 매매관리를 아우르는 통합 솔루션</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="material-icons">trending_up</span> Front Office (OMS)</h3>
+                    <p>사전배분, Compliance, Simulation, 실시간 Trading까지 원스톱 관리</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="material-icons">balance</span> Middle Office</h3>
+                    <p>Post-Compliance, 성과평가, 리스크 관리의 완벽한 균형</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">왜 ICAM인가?</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3><span class="material-icons">psychology</span> AI 기반 분석</h3>
+                    <p>빅데이터와 AI 기술을 활용한 심층적인 시장 분석 및 예측</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="material-icons">bolt</span> 실시간 대응</h3>
+                    <p>시장 변화에 즉각적으로 대응할 수 있는 실시간 모니터링 및 알림 시스템</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="material-icons">extension</span> 맞춤형 솔루션</h3>
+                    <p>고객사의 니즈에 맞춘 유연한 시스템 구성 및 지원</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">고객 성공 사례</h2>
+            <div class="features">
+                <div class="feature">
+                    <h3><span class="material-icons">pie_chart</span> A 자산운용사</h3>
+                    <p>ICAM 도입 후 운용 효율성 30% 증가, 리스크 관리 정확도 25% 향상</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="material-icons">account_balance</span> B 증권사</h3>
+                    <p>실시간 거래 시스템으로 주문 처리 속도 50% 개선, 고객 만족도 크게 상승</p>
+                </div>
+                <div class="feature">
+                    <h3><span class="material-icons">handshake</span> C 투자자문사</h3>
+                    <p>AI 기반 분석으로 투자 성과 20% 향상, 고객 자산 증대에 기여</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">파트너사</h2>
+            <div class="partner-logos">
+                <div class="partner-logo">KOSCOM</div>
+                <div class="partner-logo">증권사</div>
+                <div class="partner-logo">채권평가사</div>
+                <div class="partner-logo">예탁결제원</div>
+                <div class="partner-logo">수탁사</div>
+            </div>
+        </section>
+    </div>
+
+    <div class="cta">
+        <div class="container">
+            <h2>금융의 미래를 함께 만들어갈 준비가 되셨나요?</h2>
+            <p>레드판다스 ICAM과 함께 새로운 금융 혁신의 주인공이 되어보세요</p>
+            <a href="#" class="cta-button">데모 신청하기</a>
+        </div>
+    </div>
+
+    <script>
+        anime({
+            targets: '.bg-animation',
+            translateX: ['0%', '100%'],
+            translateY: ['0%', '100%'],
+            rotate: '1turn',
+            easing: 'linear',
+            duration: 15000,
+            loop: true
+        });
+
+        anime({
+            targets: '.feature',
+            translateY: [50, 0],
+            opacity: [0, 1],
+            delay: anime.stagger(100),
+            easing: 'easeOutQuad',
+            duration: 800
+        });
+
+        anime({
+            targets: '.partner-logo',
+            scale: [0.5, 1],
+            opacity: [0, 1],
+            delay: anime.stagger(200),
+            easing: 'easeOutElastic(1, .5)',
+            duration: 1000
+        });
+    </script>
+</body>
+</html>
