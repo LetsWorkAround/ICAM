@@ -257,23 +257,70 @@
             </div>
         </section>
 
-        <section class="section">
-            <h2 class="section-title">고객 성공 사례</h2>
-            <div class="features">
-                <div class="feature">
-                    <h3><span class="material-icons">pie_chart</span> 사단법인 경x 협회</h3>
-                    <p>업무효율 향상을 위해, 맞춤형 전산 프로그램 및 접수자 관리 시스템 도입</p>
-                </div>
-                <div class="feature">
-                    <h3><span class="material-icons">account_balance</span> 대한 체육회 소속 사단법인 xx시 협회</h3>
-                    <p>경기 데이터 수집 최적화 및 각종 활용 및 분석 자동화 </p>
-                </div>
-                <div class="feature">
-                    <h3><span class="material-icons">handshake</span> C 투자자문사</h3>
-                    <p>각종 엑셀 데이터 웹 클라우드에서 관리를 통한 팀원간 업무 효율화 향상, 자문사 맞춤 부가기능 및 분석 기능 제공.</p>
+        <section class="section success-cases">
+            <div class="section-content">
+                <h2 class="section-title">고객 성공 사례</h2>
+                <div class="section-details">
+                    <div class="features">
+                        <div class="feature">
+                            <h3><span class="material-icons">pie_chart</span> 사단법인 경x 협회</h3>
+                            <p>업무효율 향상을 위해, 맞춤형 전산 프로그램 및 접수자 관리 시스템 도입</p>
+                        </div>
+                        <div class="feature">
+                            <h3><span class="material-icons">account_balance</span> 대한 체육회 소속 사단법인 xx시 협회</h3>
+                            <p>경기 데이터 수집 최적화 및 각종 활용 및 분석 자동화</p>
+                        </div>
+                        <div class="feature">
+                            <h3><span class="material-icons">handshake</span> C 투자자문사</h3>
+                            <p>각종 엑셀 데이터 웹 클라우드에서 관리를 통한 팀원간 업무 효율화 향상, 자문사 맞춤 부가기능 및 분석 기능 제공.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
+        
+        <style>
+            .success-cases {
+                position: relative;
+                background-image: url('https://example.com/path-to-your-image.jpg');
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+                color: white;
+            }
+        
+            .success-cases::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 1;
+            }
+        
+            .success-cases .section-content {
+                position: relative;
+                z-index: 2;
+            }
+        
+            .success-cases .section-title,
+            .success-cases .feature h3,
+            .success-cases .feature p {
+                color: white;
+            }
+        
+            .success-cases .feature {
+                background-color: rgba(26, 26, 26, 0.8);
+            }
+        
+            @media (max-width: 768px) {
+                .success-cases {
+                    background-attachment: scroll;
+                }
+            }
+        </style>
 
         <section class="section">
             <h2 class="section-title">ICAM의 핵심 기술 스택</h2>
