@@ -506,20 +506,37 @@
             const dataPoints = 600;
             const funds = ['Fund A', 'Fund B', 'Fund C'];
             const colors = ['#8884d8', '#82ca9d', '#ffc658'];
-            let data = Array.from({ length: dataPoints }, () => ({ time: 0, values: [0, 0, 0] }));
-
+            const timeRange = 3000; // 5분 (300초) 범위를 표시
+            let data = [];
+            let startTime = Date.now();
+        
             function resizeCanvas() {
                 width = canvas.width = canvas.offsetWidth;
                 height = canvas.height = canvas.offsetHeight;
             }
-
+        
             function updateData() {
-                const newTime = data[data.length - 1].time + 5;
-                const newValues = data[data.length - 1].values.map(v => Math.max(-10, Math.min(10, v + (Math.random() - 0.5) * 2)));
-                data.push({ time: newTime, values: newValues });
-                if (data.length > dataPoints) data.shift();
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - startTime;
+        
+                // 새로운 데이터 포인트 추가
+                const newValues = data.length > 0 
+                    ? data[data.length - 1].values.map(v => Math.max(-10, Math.min(10, v + (Math.random() - 0.5) * 0.5)))
+                    : [0, 0, 0];
+                data.push({ time: elapsedTime, values: newValues });
+        
+                // 시간 범위를 벗어난 데이터 제거
+                while (data.length > 0 && data[0].time < elapsedTime - timeRange) {
+                    data.shift();
+                }
+        
+                // 3000초(5분)가 지나면 시작 시간 리셋
+                if (elapsedTime > timeRange) {
+                    startTime = currentTime;
+                    data = data.map(point => ({ ...point, time: point.time - timeRange }));
+                }
             }
-
+        
             function drawGraph() {
                 ctx.clearRect(0, 0, width, height);
                 
@@ -530,7 +547,7 @@
                 ctx.lineTo(50, height - 30);
                 ctx.lineTo(width - 20, height - 30);
                 ctx.stroke();
-
+        
                 // Draw Y-axis label
                 ctx.save();
                 ctx.translate(20, height / 2);
@@ -539,31 +556,30 @@
                 ctx.textAlign = 'center';
                 ctx.fillText('Return Rate (%)', 0, 0);
                 ctx.restore();
-
+        
                 // Draw X-axis label
                 ctx.fillStyle = '#ffffff';
                 ctx.textAlign = 'center';
                 ctx.fillText('Time (seconds)', width / 2, height - 10);
-
+        
                 // Draw graph lines
-                const xStep = (width - 70) / (dataPoints - 1);
+                const xStep = (width - 70) / (timeRange / 1000);
                 const yMiddle = (height - 50) / 2;
-
                 funds.forEach((fund, fundIndex) => {
                     ctx.strokeStyle = colors[fundIndex];
                     ctx.beginPath();
                     data.forEach((point, index) => {
-                        const x = 50 + index * xStep;
+                        const x = 50 + (point.time / 1000) * xStep;
                         const y = height - 30 - (yMiddle + point.values[fundIndex] * yMiddle / 10);
                         if (index === 0) ctx.moveTo(x, y);
                         else ctx.lineTo(x, y);
                     });
                     ctx.stroke();
                 });
-
+        
                 // Draw legend
                 funds.forEach((fund, index) => {
-                    ctx.fillStyle = colors[index];
+                    ctx.fillStyle = colors[fundIndex];
                     ctx.fillRect(width - 100, 20 + index * 20, 15, 15);
                     ctx.fillStyle = '#ffffff';
                     ctx.textAlign = 'left';
@@ -576,11 +592,10 @@
                 drawGraph();
                 requestAnimationFrame(animate);
             }
-
+        
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
-            
-            setInterval(animate, 1000);
+            animate();
         })();
     </script>
 </body>
