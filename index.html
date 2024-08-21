@@ -253,69 +253,6 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* 텍스트에 그림자 추가로 가독성 향상 */
         }
     </style>
-    <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            position: relative;
-        }
-        .background-table-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            z-index: 1;
-        }
-        .content-overlay {
-            position: relative;
-            z-index: 2;
-            background-color: rgba(255, 255, 255, 0.8);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        .container { 
-            max-width: 1200px; 
-            margin: 0 auto; 
-        }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-        }
-        th, td { 
-            border: 1px solid #ddd; 
-            padding: 8px; 
-            text-align: left; 
-        }
-        th { 
-            background-color: #f2f2f2; 
-            cursor: pointer; 
-        }
-        th:hover { 
-            background-color: #ddd; 
-        }
-        .sortable::after { 
-            content: " ↕"; 
-        }
-        .value { 
-            transition: color 0.3s ease, transform 0.3s ease; 
-        }
-        .value.changing { 
-            transform: scale(1.1); 
-        }
-        .positive-1 { color: #4CAF50; }
-        .positive-2 { color: #45a049; }
-        .positive-3 { color: #3d9142; }
-        .positive-4 { color: #36833b; }
-        .negative-1 { color: #f44336; }
-        .negative-2 { color: #e53935; }
-        .negative-3 { color: #d32f2f; }
-        .negative-4 { color: #c62828; }
-        .stock-row { background-color: rgba(249, 249, 249, 0.8); font-size: 0.9em; }
-        .stock-name { padding-left: 20px; }
-    </style>
 </head>
 <body>
     <div class="hero">
@@ -351,31 +288,6 @@
         </section>
         
         <!-- 테이블 -->
-        <div class="background-table-container">
-            <table id="fundTable">
-                <!-- 기존 테이블 내용 -->
-                    <div class="container">
-                        <h1>Comprehensive Return Management System</h1>
-                        <table id="fundTable">
-                            <thead>
-                                <tr>
-                                    <th>펀드명</th>
-                                    <th class="sortable" data-sort="threeMonth">3개월 (%)</th>
-                                    <th class="sortable" data-sort="sixMonth">6개월 (%)</th>
-                                    <th class="sortable" data-sort="oneYear">1년 (%)</th>
-                                    <th class="sortable" data-sort="threeYear">3년 (%)</th>
-                                    <th class="sortable" data-sort="sinceLaunch">설정이후 (%)</th>
-                                    <th class="sortable" data-sort="size">펀드규모 (억)</th>
-                                </tr>
-                            </thead>
-                            <tbody id="fundTableBody">
-                                <!-- JavaScript will populate this -->
-                            </tbody>
-                        </table>
-                    </div>
-            </table>
-        </div>
-        
         <style>
             .fund-management-section { 
                 font-family: Arial, sans-serif; 
