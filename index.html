@@ -359,28 +359,24 @@
             </table>
         </div>
         
-        <div class="content-overlay">
-            <div class="container">
-                <h1>Comprehensive Return Management System</h1>
-                <!-- 여기에 다른 콘텐츠를 추가할 수 있습니다 -->
-                <section class="section">
-                    <h2 class="section-title">왜 레드판다스 ICAM인가?</h2>
-                    <div class="features">
-                        <div class="feature">
-                            <h3><span class="material-icons">psychology</span> 경제 전문가 + IT 전문가</h3>
-                            <p>경제학 전공자와 컴퓨터 공학 전공자 모두를 통해 니즈를 정확히 분석하고 제공하겠습니다.</p>
-                        </div>
-                        <div class="feature">
-                            <h3><span class="material-icons">bolt</span> 신뢰도 높은 24시간 원활한 서비스 유지</h3>
-                            <p>24시간 원활한 웹 서비스 제공. 언제든지 서비스에 접속하세요.</p>
-                        </div>
-                        <div class="feature">
-                            <h3><span class="material-icons">extension</span> 맞춤형 솔루션</h3>
-                            <p>고객사의 니즈에 맞춘 유연한 시스템 구성 및 지원. 고객의 업무 효율성의 향상은 자사의 보람입니다.</p>
-                        </div>
+        <div class="container">
+            <section class="section">
+                <h2 class="section-title">왜 레드판다스 ICAM인가?</h2>
+                <div class="features">
+                    <div class="feature">
+                        <h3><span class="material-icons">psychology</span> 경제 전문가 + IT 전문가</h3>
+                        <p>경제학 전공자와 컴퓨터 공학 전공자 모두를 통해 니즈를 정확히 분석하고 제공하겠습니다.</p>
                     </div>
-                </section>
-            </div>
+                    <div class="feature">
+                        <h3><span class="material-icons">bolt</span> 신뢰도 높은 24시간 원활한 서비스 유지</h3>
+                        <p>24시간 원활한 웹 서비스 제공. 언제든지 서비스에 접속하세요.</p>
+                    </div>
+                    <div class="feature">
+                        <h3><span class="material-icons">extension</span> 맞춤형 솔루션</h3>
+                        <p>고객사의 니즈에 맞춘 유연한 시스템 구성 및 지원. 고객의 업무 효율성의 향상은 자사의 보람입니다.</p>
+                    </div>
+                </div>
+            </section>
         </div>
 
         <section class="section success-cases">
@@ -584,7 +580,7 @@
         });
     </script>
     
-    <!-- Fund Performance Graph React 컴포넌트 -->
+    <!-- 펀드 그래프 -->
     <script>
         // Fund Performance Graph 순수 JavaScript 구현
         (function() {
@@ -630,12 +626,12 @@
                 ctx.clearRect(0, 0, width, height);
                 
                 // Draw axes
-                ctx.strokeStyle = '#ffffff';
-                ctx.beginPath();
-                ctx.moveTo(50, 20);
-                ctx.lineTo(50, height - 30);
-                ctx.lineTo(width - 20, height - 30);
-                ctx.stroke();
+                // ctx.strokeStyle = '#ffffff';
+                // ctx.beginPath();
+                // ctx.moveTo(50, 20);
+                // ctx.lineTo(50, height - 30);
+                // ctx.lineTo(width - 20, height - 30);
+                // ctx.stroke();
         
                 // Draw Y-axis label
                 ctx.save();
@@ -688,7 +684,7 @@
         })();
     </script>
 
-    
+    <!-- 펀드 테이블 -->
     <script>
         const fundsData = [
             { 
