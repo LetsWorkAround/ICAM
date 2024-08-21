@@ -218,8 +218,8 @@
             z-index: 1;
         }
 
-        
-        .icam-features {
+        /* 추가: 펀드 섹션 그래프 스타일 */
+                .icam-features {
             position: relative;
             overflow: hidden;
             padding: 100px 0;
@@ -228,7 +228,7 @@
         .icam-features-content {
             position: relative;
             z-index: 2;
-            background-color: rgba(10, 10, 10, 0.7);
+            background-color: rgba(10, 10, 10, 0.7); /* 배경색을 반투명하게 변경 */
             padding: 20px;
             border-radius: 10px;
         }
@@ -240,6 +240,17 @@
             width: 100%;
             height: 100%;
             z-index: 1;
+        }
+
+        /* 추가: 텍스트 가독성을 위한 스타일 */
+        .icam-features .feature {
+            background-color: rgba(26, 26, 26, 0.8); /* 각 기능 카드의 배경도 약간 투명하게 */
+        }
+
+        .icam-features .section-title,
+        .icam-features .feature h3,
+        .icam-features .feature p {
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8); /* 텍스트에 그림자 추가로 가독성 향상 */
         }
     </style>
 </head>
