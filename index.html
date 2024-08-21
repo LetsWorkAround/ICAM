@@ -486,7 +486,7 @@
             }
         };
 
-        setInterval(draw, 30);
+        setInterval(draw, 1000);
 
         // 화면 크기 변경 시 캔버스 크기 조정
         window.addEventListener('resize', () => {
@@ -515,7 +515,7 @@
 
             function updateData() {
                 const newTime = data[data.length - 1].time + 1;
-                const newValues = data[data.length - 1].values.map(v => Math.max(-10, Math.min(10, v + (Math.random() - 0.5) * 0.5)));
+                const newValues = data[data.length - 1].values.map(v => Math.max(-10, Math.min(10, v + (Math.random() - 0.5) * 0.1)));
                 data.push({ time: newTime, values: newValues });
                 if (data.length > dataPoints) data.shift();
             }
@@ -574,7 +574,6 @@
             function animate() {
                 updateData();
                 drawGraph();
-                requestAnimationFrame(animate);
             }
 
             window.addEventListener('resize', resizeCanvas);
