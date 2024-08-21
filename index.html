@@ -220,17 +220,18 @@
         .icam-features {
             position: relative;
             overflow: hidden;
+            padding: 100px 0;
         }
 
         .icam-features-content {
             position: relative;
             z-index: 2;
-            background-color: rgba(10, 10, 10, 0.7); /* 반투명한 배경 추가 */
+            background-color: rgba(10, 10, 10, 0.7);
             padding: 20px;
             border-radius: 10px;
         }
 
-        #icam-features-canvas {
+        #fund-performance-graph {
             position: absolute;
             top: 0;
             left: 0;
@@ -239,10 +240,9 @@
             z-index: 1;
         }
 
-        /* 기존의 section 스타일을 오버라이드 */
-        .icam-features.section:nth-of-type(odd),
-        .icam-features.section:nth-of-type(even) {
-            background-color: transparent;
+        /* recharts 스타일 오버라이드 */
+        .recharts-surface {
+            overflow: visible;
         }
     </style>
 </head>
@@ -259,7 +259,7 @@
 
     <div class="container">
         <section class="section icam-features">
-            <canvas id="icam-features-canvas"></canvas>
+            <div id="fund-performance-graph"></div>
             <div class="icam-features-content">
                 <h2 class="section-title">ICAM의 핵심 기능</h2>
                 <div class="features">
@@ -497,65 +497,59 @@
             canvas.height = window.innerHeight;
         });
     </script>
-    <script>
-        // 기존의 Matrix Digital Rain 스크립트
-        function setupMatrixRain(canvasId) {
-            const canvas = document.getElementById(canvasId);
-            const ctx = canvas.getContext('2d');
+    
+    <!-- Fund Performance Graph React 컴포넌트 -->
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = Recharts;
 
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+        const AnimatedFundPerformance = () => {
+            const [data, setData] = useState(Array.from({ length: 60 }, (_, i) => ({
+                time: i,
+                'Fund A': 0,
+                'Fund B': 0,
+                'Fund C': 0,
+            })));
 
-            const katakana = '19283286710293709127903871971987891203957097293716745985742815027399037796749076930';
-            const latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            const nums = '0123456789';
-            const alphabet = katakana + latin + nums;
+            useEffect(() => {
+                const interval = setInterval(() => {
+                    setData(prevData => {
+                        const newData = [...prevData.slice(1), {
+                            time: prevData[prevData.length - 1].time + 1,
+                            'Fund A': prevData[prevData.length - 1]['Fund A'] + (Math.random() - 0.5) * 2,
+                            'Fund B': prevData[prevData.length - 1]['Fund B'] + (Math.random() - 0.5) * 2,
+                            'Fund C': prevData[prevData.length - 1]['Fund C'] + (Math.random() - 0.5) * 2,
+                        }];
+                        return newData;
+                    });
+                }, 500);
 
-            const fontSize = 16;
-            const columns = canvas.width / fontSize;
+                return () => clearInterval(interval);
+            }, []);
 
-            const rainDrops = [];
+            return (
+                <ResponsiveContainer width="100%" height="100%">
+                    <LineChart data={data}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis 
+                            dataKey="time" 
+                            label={{ value: 'Time (seconds)', position: 'insideBottom', offset: -10 }}
+                        />
+                        <YAxis 
+                            label={{ value: 'Return Rate (%)', angle: -90, position: 'insideLeft' }}
+                            domain={[-10, 10]}
+                        />
+                        <Tooltip formatter={(value) => value.toFixed(2) + '%'} />
+                        <Legend />
+                        <Line type="monotone" dataKey="Fund A" stroke="#8884d8" dot={false} />
+                        <Line type="monotone" dataKey="Fund B" stroke="#82ca9d" dot={false} />
+                        <Line type="monotone" dataKey="Fund C" stroke="#ffc658" dot={false} />
+                    </LineChart>
+                </ResponsiveContainer>
+            );
+        };
 
-            for (let x = 0; x < columns; x++) {
-                rainDrops[x] = 1;
-            }
-
-            const draw = () => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = '#0F0';
-                ctx.font = fontSize + 'px monospace';
-
-                for (let i = 0; i < rainDrops.length; i++) {
-                    const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                    ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
-
-                    if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        rainDrops[i] = 0;
-                    }
-                    rainDrops[i]++;
-                }
-            };
-
-            return setInterval(draw, 30);
-        }
-
-        // 메인 히어로 섹션의 Matrix Rain 설정
-        setupMatrixRain('matrix-canvas');
-
-        // ICAM 핵심 기능 섹션의 Matrix Rain 설정
-        setupMatrixRain('icam-features-canvas');
-
-        // 화면 크기 변경 시 캔버스 크기 조정
-        window.addEventListener('resize', () => {
-            const canvases = ['matrix-canvas', 'icam-features-canvas'];
-            canvases.forEach(id => {
-                const canvas = document.getElementById(id);
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-            });
-        });
+        ReactDOM.render(<AnimatedFundPerformance />, document.getElementById('fund-performance-graph'));
     </script>
 </body>
 </html>
