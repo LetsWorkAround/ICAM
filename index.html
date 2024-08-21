@@ -578,12 +578,12 @@
                 });
         
                 // Draw legend
-                funds.forEach((fund, index) => {
+                funds.forEach((fund, fundIndex) => {
                     ctx.fillStyle = colors[fundIndex];
-                    ctx.fillRect(width - 100, 20 + index * 20, 15, 15);
+                    ctx.fillRect(width - 100, 20 + fundIndex * 20, 15, 15);
                     ctx.fillStyle = '#ffffff';
                     ctx.textAlign = 'left';
-                    ctx.fillText(fund, width - 80, 32 + index * 20);
+                    ctx.fillText(fund, width - 80, 32 + fundIndex * 20);
                 });
             }
             
