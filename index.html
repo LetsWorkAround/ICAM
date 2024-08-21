@@ -823,32 +823,29 @@
             animate();
         })();
     </script>
+
+    
     <script>
         const fundsData = [
             { 
                 name: "DB바이오헬스케어증권자투자신탁제1호[주식]ClassA-E", 
-                threeMonth: 11.12, sixMonth: 24.12, oneYear: 42.03, threeYear: 2.28, sinceLaunch: 42.94, size: 71,
-                stocks: ["삼성바이오로직스", "셀트리온", "유한양행", "SK바이오사이언스", "한미약품"]
+                threeMonth: 11.12, sixMonth: 24.12, oneYear: 42.03, threeYear: 2.28, sinceLaunch: 42.94, size: 71
             },
             { 
                 name: "미래에셋연금한국헬스케어증권자투자신탁1호주식CPe", 
-                threeMonth: 10.33, sixMonth: 17.97, oneYear: 13.57, threeYear: -13.88, sinceLaunch: 27.50, size: 184,
-                stocks: ["삼성바이오로직스", "셀트리온", "유한양행", "녹십자"]
+                threeMonth: 10.33, sixMonth: 17.97, oneYear: 13.57, threeYear: -13.88, sinceLaunch: 27.50, size: 184
             },
             { 
                 name: "미래에셋한국헬스케어증권자투자신탁1호(주식)A-e", 
-                threeMonth: 10.32, sixMonth: 17.92, oneYear: 13.43, threeYear: -14.11, sinceLaunch: 161.55, size: 109,
-                stocks: ["삼성바이오로직스", "셀트리온", "유한양행", "한미약품", "녹십자"]
+                threeMonth: 10.32, sixMonth: 17.92, oneYear: 13.43, threeYear: -14.11, sinceLaunch: 161.55, size: 109
             },
             { 
                 name: "웰컴액티브공모주코스닥벤처기업증권투자신탁[주혼]Ae", 
-                threeMonth: 7.54, sixMonth: 30.24, oneYear: 25.31, threeYear: 0, sinceLaunch: 12, size: 1.05,
-                stocks: ["카카오뱅크", "LG에너지솔루션", "SK아이이테크놀로지"]
+                threeMonth: 7.54, sixMonth: 30.24, oneYear: 25.31, threeYear: 0, sinceLaunch: 12, size: 1.05
             },
             { 
                 name: "삼성ABF코리아장기채권인덱스증권투자신탁[채권]I", 
-                threeMonth: 4.49, sixMonth: 5.78, oneYear: 11.08, threeYear: 0.85, sinceLaunch: 85.18, size: 157,
-                stocks: ["국고채권", "한국전력공사채권", "한국도로공사채권", "한국가스공사채권"]
+                threeMonth: 4.49, sixMonth: 5.78, oneYear: 11.08, threeYear: 0.85, sinceLaunch: 85.18, size: 157
             }
         ];
 
@@ -892,16 +889,6 @@
                     <td class="value" data-value="${fund.size}">${fund.size.toFixed(2)}</td>
                 `;
                 tableBody.appendChild(fundRow);
-
-                // Add stock rows
-                fund.stocks.forEach(stock => {
-                    const stockRow = document.createElement('tr');
-                    stockRow.className = 'stock-row';
-                    stockRow.innerHTML = `
-                        <td class="stock-name" colspan="7">- ${stock}</td>
-                    `;
-                    tableBody.appendChild(stockRow);
-                });
             });
         }
 
