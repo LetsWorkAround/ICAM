@@ -486,7 +486,7 @@
             }
         };
 
-        setInterval(draw, 100);
+        setInterval(draw, 200);
 
         // 화면 크기 변경 시 캔버스 크기 조정
         window.addEventListener('resize', () => {
@@ -501,7 +501,7 @@
         (function() {
             const canvas = document.getElementById('fund-performance-graph');
             const ctx = canvas.getContext('2d');
-            const lastUpdateTime = 0;
+            
             let width, height;
             const dataPoints = 60;
             const funds = ['Fund A', 'Fund B', 'Fund C'];
@@ -571,19 +571,16 @@
                 });
             }
             
-            const updateInterval = 200; // 200ms마다 데이터 업데이트
-            function animate(currentTime) {
-                if (currentTime - lastUpdateTime > updateInterval) {
-                    updateData();
-                    lastUpdateTime = currentTime;
-                }
+            function animate() {
+                updateData();
                 drawGraph();
                 requestAnimationFrame(animate);
             }
 
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
-            animate();
+            
+            setInterval(animate, 1000);
         })();
     </script>
 </body>
