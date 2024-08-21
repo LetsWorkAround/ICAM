@@ -8,11 +8,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     
-    <!-- React 및 필요한 라이브러리 로드 -->
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    <script src="https://unpkg.com/recharts@2.1.9/umd/Recharts.js"></script>
     <style>
         :root {
             --bg-color: #0a0a0a;
@@ -222,6 +217,7 @@
             height: 100%;
             z-index: 1;
         }
+
         
         .icam-features {
             position: relative;
@@ -245,11 +241,6 @@
             height: 100%;
             z-index: 1;
         }
-
-        /* recharts 스타일 오버라이드 */
-        .recharts-surface {
-            overflow: visible;
-        }
     </style>
 </head>
 <body>
@@ -265,7 +256,7 @@
 
     <div class="container">
         <section class="section icam-features">
-            <div id="fund-performance-graph"></div>
+            <canvas id="fund-performance-graph"></canvas>
             <div class="icam-features-content">
                 <h2 class="section-title">ICAM의 핵심 기능</h2>
                 <div class="features">
@@ -505,57 +496,91 @@
     </script>
     
     <!-- Fund Performance Graph React 컴포넌트 -->
-    <script type="text/babel">
-        const { useState, useEffect } = React;
-        const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } = Recharts;
+    <script>
+        // Fund Performance Graph 순수 JavaScript 구현
+        (function() {
+            const canvas = document.getElementById('fund-performance-graph');
+            const ctx = canvas.getContext('2d');
 
-        const AnimatedFundPerformance = () => {
-            const [data, setData] = useState(Array.from({ length: 60 }, (_, i) => ({
-                time: i,
-                'Fund A': 0,
-                'Fund B': 0,
-                'Fund C': 0,
-            })));
+            let width, height;
+            const dataPoints = 120;
+            const funds = ['Fund A', 'Fund B', 'Fund C'];
+            const colors = ['#8884d8', '#82ca9d', '#ffc658'];
+            let data = Array.from({ length: dataPoints }, () => ({ time: 0, values: [0, 0, 0] }));
 
-            useEffect(() => {
-                const interval = setInterval(() => {
-                    setData(prevData => {
-                        const newData = [...prevData.slice(1), {
-                            time: prevData[prevData.length - 1].time + 1,
-                            'Fund A': prevData[prevData.length - 1]['Fund A'] + (Math.random() - 0.5) * 2,
-                            'Fund B': prevData[prevData.length - 1]['Fund B'] + (Math.random() - 0.5) * 2,
-                            'Fund C': prevData[prevData.length - 1]['Fund C'] + (Math.random() - 0.5) * 2,
-                        }];
-                        return newData;
+            function resizeCanvas() {
+                width = canvas.width = canvas.offsetWidth;
+                height = canvas.height = canvas.offsetHeight;
+            }
+
+            function updateData() {
+                const newTime = data[data.length - 1].time + 1;
+                const newValues = data[data.length - 1].values.map(v => Math.max(-10, Math.min(10, v + (Math.random() - 0.5) * 0.5)));
+                data.push({ time: newTime, values: newValues });
+                if (data.length > dataPoints) data.shift();
+            }
+
+            function drawGraph() {
+                ctx.clearRect(0, 0, width, height);
+                
+                // Draw axes
+                ctx.strokeStyle = '#ffffff';
+                ctx.beginPath();
+                ctx.moveTo(50, 20);
+                ctx.lineTo(50, height - 30);
+                ctx.lineTo(width - 20, height - 30);
+                ctx.stroke();
+
+                // Draw Y-axis label
+                ctx.save();
+                ctx.translate(20, height / 2);
+                ctx.rotate(-Math.PI / 2);
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.fillText('Return Rate (%)', 0, 0);
+                ctx.restore();
+
+                // Draw X-axis label
+                ctx.fillStyle = '#ffffff';
+                ctx.textAlign = 'center';
+                ctx.fillText('Time (seconds)', width / 2, height - 10);
+
+                // Draw graph lines
+                const xStep = (width - 70) / (dataPoints - 1);
+                const yMiddle = (height - 50) / 2;
+
+                funds.forEach((fund, fundIndex) => {
+                    ctx.strokeStyle = colors[fundIndex];
+                    ctx.beginPath();
+                    data.forEach((point, index) => {
+                        const x = 50 + index * xStep;
+                        const y = height - 30 - (yMiddle + point.values[fundIndex] * yMiddle / 10);
+                        if (index === 0) ctx.moveTo(x, y);
+                        else ctx.lineTo(x, y);
                     });
-                }, 500);
+                    ctx.stroke();
+                });
 
-                return () => clearInterval(interval);
-            }, []);
+                // Draw legend
+                funds.forEach((fund, index) => {
+                    ctx.fillStyle = colors[index];
+                    ctx.fillRect(width - 100, 20 + index * 20, 15, 15);
+                    ctx.fillStyle = '#ffffff';
+                    ctx.textAlign = 'left';
+                    ctx.fillText(fund, width - 80, 32 + index * 20);
+                });
+            }
 
-            return (
-                <ResponsiveContainer width="100%" height="100%">
-                    <LineChart data={data}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis 
-                            dataKey="time" 
-                            label={{ value: 'Time (seconds)', position: 'insideBottom', offset: -10 }}
-                        />
-                        <YAxis 
-                            label={{ value: 'Return Rate (%)', angle: -90, position: 'insideLeft' }}
-                            domain={[-10, 10]}
-                        />
-                        <Tooltip formatter={(value) => value.toFixed(2) + '%'} />
-                        <Legend />
-                        <Line type="monotone" dataKey="Fund A" stroke="#8884d8" dot={false} />
-                        <Line type="monotone" dataKey="Fund B" stroke="#82ca9d" dot={false} />
-                        <Line type="monotone" dataKey="Fund C" stroke="#ffc658" dot={false} />
-                    </LineChart>
-                </ResponsiveContainer>
-            );
-        };
+            function animate() {
+                updateData();
+                drawGraph();
+                requestAnimationFrame(animate);
+            }
 
-        ReactDOM.render(<AnimatedFundPerformance />, document.getElementById('fund-performance-graph'));
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+            animate();
+        })();
     </script>
 </body>
 </html>
