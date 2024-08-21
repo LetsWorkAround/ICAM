@@ -515,7 +515,7 @@
 
             function updateData() {
                 const newTime = data[data.length - 1].time + 1;
-                const newValues = data[data.length - 1].values.map(v => Math.max(-50, Math.min(50, v + (Math.random() - 0.5) * 2)));
+                const newValues = data[data.length - 1].values.map(v => Math.max(-20, Math.min(20, v + (Math.random() - 0.5) * 2)));
                 data.push({ time: newTime, values: newValues });
                 if (data.length > dataPoints) data.shift();
             }
@@ -570,9 +570,13 @@
                     ctx.fillText(fund, width - 80, 32 + index * 20);
                 });
             }
-
-            function animate() {
-                updateData();
+            
+            const updateInterval = 200; // 200ms마다 데이터 업데이트
+            function animate(currentTime) {
+                if (currentTime - lastUpdateTime > updateInterval) {
+                    updateData();
+                    lastUpdateTime = currentTime;
+                }
                 drawGraph();
                 requestAnimationFrame(animate);
             }
