@@ -515,7 +515,7 @@
 
             function updateData() {
                 const newTime = data[data.length - 1].time + 1;
-                const newValues = data[data.length - 1].values.map(v => Math.max(-20, Math.min(20, v + (Math.random() - 0.5) * 2)));
+                const newValues = data[data.length - 1].values.map(v => Math.max(-10, Math.min(10, v + (Math.random() - 0.5) * 2)));
                 data.push({ time: newTime, values: newValues });
                 if (data.length > dataPoints) data.shift();
             }
@@ -580,7 +580,7 @@
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
             
-            setInterval(animate, 1000);
+            setInterval(animate, 5000);
         })();
     </script>
 </body>
